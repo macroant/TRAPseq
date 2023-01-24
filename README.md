@@ -14,6 +14,13 @@ $ bash hello_work.sh para_1 para_2
 $ bash hello_work.sh para_3 para_4
 ```
 
+```bash
+$ STAR --runThreadN threads_num --runMode genomeGenerate --genomeDir /path-to-index \
+		 --genomeFastaFiles /path-to-fasta \
+		 --sjdbGTFfile /path-to-GTF-file \
+		 --sjdbOverhang 99
+```
+
 ##Install required libraries
 We are using "R version 3.4.1" here.
 For R, 'DESeq2' library is required, which can be installed via bioconductor https://bioconductor.org/packages/release/bioc/html/DESeq2.html
