@@ -109,6 +109,9 @@ Evaluate and remove outlier samples can significantly improve the reliability of
 > pc <- PcaGrid(t(data_matrix_log), k = 3, method = "qn")
 > plot(pc, main = "Robust PCA, k=3", xlim = c(0, 3.5))
 ```
+#Visualization TRAPseq Samples with classic PCA
+<img src="https://github.com/macroant/TRAPseq/blob/main/doc/PCA.png" height="400" width="500">
+
 <img src="https://github.com/macroant/TRAPseq/blob/main/doc/robustPCA.png" height="400" width="500">
 
 ## <a name="workflow"></a> Step 4 Cell Type Deconvolution
