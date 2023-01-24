@@ -8,14 +8,6 @@ see, https://www.google.com/ for more TRAPseq experiment details.
 To replicate results presented in the manuscript above, please run the script after installation of all required libraries.
 
 
-```bash
-$ bash hello_work.sh para_1 para_2
-# for example
-$ bash hello_work.sh para_3 para_4
-```
-
-
-
 ##Install required libraries
 We are using "R version 3.4.1" here.
 For R, 'DESeq2' library is required, which can be installed via bioconductor https://bioconductor.org/packages/release/bioc/html/DESeq2.html
