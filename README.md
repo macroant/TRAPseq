@@ -30,8 +30,17 @@ The bioinformatics pipeline used for TRAPseq analysis consists of six main steps
 ## <a name="workflow"></a> Step 1 Trimming & Alignment
 Reads quality trimming and cleaned sequencing reads alignment to reference genomes. 
 Firstly, [fastp](https://github.com/OpenGene/fastp) is run to remove low quality bases from raw sequencing reads while also removing any potential adapter sequences. <BR>
-
+```bash
+$ fastp -i R1.fastq.gz -I R2.fastq.gz \
+    -o R1.fastq.gz.out.fq.gz -O R2.fastq.gz.out.fq.gz \
+    -j test.json -h test.html -w threads_num
+```
 Once the reads are cleaned, alignment to the reference genomes is performed using [STAR](https://github.com/alexdobin/STAR). In this study, reads are aligned to the mouse genome by STAR 2.7.9. Following alignment, unaligned reads are removed, and alignment statistics are calculated.<BR>
+```bash
+$ STAR --genomeDir /path-to-STAR-index --readFilesIn R1.fastq.gz.out.fq.gz R2.fastq.gz.out.fq.gz \
+    --outSAMtype BAM SortedByCoordinate --limitBAMsortRAM 16000000000 --outSAMunmapped Within \
+    --runThreadN threads_num --outFileNamePrefix output_test
+```
 
 ## <a name="workflow"></a> Step 2 Raw Reads Quantification & Normalization
 Assign aligned reads to genomic features (genes) and summarize raw reads count for each genomic feature and each sample. Normalize raw read counts to remove technical biases, e.g. sequencing depth and gene length, and make normalized gene expression values directly comparable within and across samples.
@@ -39,7 +48,7 @@ The gene abundance quantification tool [featureCount](https://subread.sourceforg
 The relative abundance of a transcript is calculated by Fragments per Kilobase per Million Mapped Fragments (FPKM) and Transcripts per million (TPM).<BR>
 
 ## <a name="workflow"></a> Step 3 Detection of Outlier Samples
-Evaluate and remove outlier samples can significantly improve the reliability of DEGs and downstream functional analysis. We used robustPCA for outlier detection as it was found to result in stable performance and  the default cutoff value allows correct identification of outliers without yielding false positives in an evaluation study.<BR>
+Evaluate and remove outlier samples can significantly improve the reliability of DEGs and downstream functional analysis. We used [robustPCA](https://cran.r-project.org/web/packages/rrcov/index.html) for outlier detection as it was found to result in stable performance and  the default cutoff value allows correct identification of outliers without yielding false positives in an evaluation study.<BR>
 
 ## <a name="workflow"></a> Step 4 Cell Type Deconvolution
 TRAPseq enriches specific cells than other cells, cell type deconvolution analysis can help reveal the cell type composition of TRAPseq transcriptome profiles. We estimated the cellular compositions of the TRAPseq samples through deconvolution analysis. We obtained gene expression signatures for major tubules segments from a mouse micro-dissected tubules dataset (GSE150338, PMID: 33769951), and used as input into [CIBERSORTx](https://cibersortx.stanford.edu) to estimate the cellular composition of our TRAPseq data. <BR>
