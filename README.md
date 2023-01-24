@@ -24,10 +24,17 @@ For R, 'DESeq2' library is required, which can be installed via bioconductor htt
 > BiocManager::install("DESeq2")
 ```
 
-## <a name="workflow"></a>Workflow
+## Workflow
+The bioinformatics pipeline used for TRAPseq analysis consists of six main steps. Each of these steps performs a required function in processing the raw sequencing files (Fastq files) to obtain high-quality DEG list while the optional enrichment step performs the biological interpretation of DEGs once they are called. The six bioinformatics analysis steps are detailed below.<BR>
+    
+## <a name="workflow"></a> Step 1, Trimming & Alignment
+Reads quality trimming and cleaned sequencing reads alignment to reference genomes. 
+Firstly, fastp is run to remove low quality bases from raw sequencing reads while also removing any potential adapter sequences. <BR>
 
-# Step 1
+Once the reads are cleaned, alignment to the reference genomes is performed using STAR (2.7.1). In this study, reads are aligned to the mouse genome (Gencode GRCm38.p6 with gencode vM25 GTF file) by STAR 2.7.9. Following alignment, unaligned reads are removed, and alignment statistics are calculated.<BR>
 
-# Step 2
-
+## <a name="workflow"></a> Step 2 Raw Reads Quantification & Normalization
+Assign aligned reads to genomic features (genes) and summarize raw reads count for each genomic feature and each sample. Normalize raw read counts to remove technical biases, e.g. sequencing depth and gene length, and make normalized gene expression values directly comparable within and across samples.
+The gene abundance quantification tool featureCount is used to calculate raw read count for each gene and each sample. We used the gene expression detection threshold where genes were selected if there were ≥6 reads in at least 20% of samples. 
+    
 ## Useful References
