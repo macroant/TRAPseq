@@ -73,7 +73,9 @@ Evaluate and remove outlier samples can significantly improve the reliability of
 > pc <- PcaGrid(t(data_matrix_log), k = 3, method = "qn")
 > plot(pc, main = "Robust PCA, k=3", xlim = c(0, 3.5))
 ```
-	
+<img src="https://github.com/macroant/TRAPseq/blob/main/doc/scree_plot.png" height="400" width="500">
+<img src="https://github.com/macroant/TRAPseq/blob/main/doc/robustPCA.png" height="400" width="500">
+
 ## <a name="workflow"></a> Step 4 Cell Type Deconvolution
 TRAPseq enriches specific cells than other cells, cell type deconvolution analysis can help reveal the cell type composition of TRAPseq transcriptome profiles. We estimated the cellular compositions of the TRAPseq samples through deconvolution analysis. We obtained gene expression signatures for major tubules segments from a mouse micro-dissected tubules dataset (GSE150338, PMID: 33769951), and used as input into [CIBERSORTx](https://cibersortx.stanford.edu) to estimate the cellular composition of our TRAPseq data. <BR>
 
