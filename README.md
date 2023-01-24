@@ -14,12 +14,7 @@ $ bash hello_work.sh para_1 para_2
 $ bash hello_work.sh para_3 para_4
 ```
 
-```bash
-$ STAR --runThreadN threads_num --runMode genomeGenerate --genomeDir /path-to-index \
-		 --genomeFastaFiles /path-to-fasta \
-		 --sjdbGTFfile /path-to-GTF-file \
-		 --sjdbOverhang 99
-```
+
 
 ##Install required libraries
 We are using "R version 3.4.1" here.
@@ -42,7 +37,16 @@ $ fastp -i R1.fastq.gz -I R2.fastq.gz \
     -o R1.fastq.gz.out.fq.gz -O R2.fastq.gz.out.fq.gz \
     -j test.json -h test.html -w threads_num
 ```
+fastp can be generated detailed HTML reports to assess reads stats, quality, GC content, duplication rate, length distribution, K-mer content and adapter contamination.<BR>
 Once the reads are cleaned, alignment to the reference genomes is performed using [STAR](https://github.com/alexdobin/STAR). In this study, reads are aligned to the mouse genome by STAR 2.7.9. Following alignment, unaligned reads are removed, and alignment statistics are calculated.<BR>
+#prior to alignment, STAR require you to construct and index the genome.
+```bash
+$ STAR --runThreadN threads_num --runMode genomeGenerate --genomeDir /path-to-index \
+		 --genomeFastaFiles /path-to-fasta \
+		 --sjdbGTFfile /path-to-GTF-file \
+		 --sjdbOverhang 99
+```
+#alignment with STAR
 ```bash
 $ STAR --genomeDir /path-to-STAR-index --readFilesIn R1.fastq.gz.out.fq.gz R2.fastq.gz.out.fq.gz \
     --outSAMtype BAM SortedByCoordinate --limitBAMsortRAM 16000000000 --outSAMunmapped Within \
