@@ -216,7 +216,8 @@ combined_plot <- SKO_WT_plot + SKO_DKO_plot + DKO_WT_plot
 
 combined_plot
 ```
-	
+<img src="https://github.com/macroant/TRAPseq/blob/main/doc/volcano.png" height="400" width="700">
+
 ## <a name="workflow"></a> Step 6 Enrichment Analysis (optional analysis step)
 Biological interpretations of selected DEGs are performed using various bioinformatics tools, including [DAVID](https://david.ncifcrf.gov), [Metascape](https://metascape.org/gp/index.html#/main/step1), and commercal tool [IPA](https://digitalinsights.qiagen.com/products-overview/discovery-insights-portfolio/analysis-and-visualization/qiagen-ipa/) or [MetaCore](https://clarivate.com/products/biopharma/discovery-clinical-regulatory/early-research-intelligence-solutions/).
 
