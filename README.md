@@ -29,25 +29,25 @@ The bioinformatics pipeline used for TRAPseq analysis consists of six main steps
     
 ## <a name="workflow"></a> Step 1 Trimming & Alignment
 Reads quality trimming and cleaned sequencing reads alignment to reference genomes. 
-Firstly, fastp is run to remove low quality bases from raw sequencing reads while also removing any potential adapter sequences. <BR>
+Firstly, [fastp](https://github.com/OpenGene/fastp) is run to remove low quality bases from raw sequencing reads while also removing any potential adapter sequences. <BR>
 
-Once the reads are cleaned, alignment to the reference genomes is performed using STAR (2.7.1). In this study, reads are aligned to the mouse genome (Gencode GRCm38.p6 with gencode vM25 GTF file) by STAR 2.7.9. Following alignment, unaligned reads are removed, and alignment statistics are calculated.<BR>
+Once the reads are cleaned, alignment to the reference genomes is performed using [STAR](https://github.com/alexdobin/STAR). In this study, reads are aligned to the mouse genome by STAR 2.7.9. Following alignment, unaligned reads are removed, and alignment statistics are calculated.<BR>
 
 ## <a name="workflow"></a> Step 2 Raw Reads Quantification & Normalization
 Assign aligned reads to genomic features (genes) and summarize raw reads count for each genomic feature and each sample. Normalize raw read counts to remove technical biases, e.g. sequencing depth and gene length, and make normalized gene expression values directly comparable within and across samples.
-The gene abundance quantification tool featureCount is used to calculate raw read count for each gene and each sample. We used the gene expression detection threshold where genes were selected if there were ≥6 reads in at least 20% of samples. <BR>
+The gene abundance quantification tool [featureCount](https://subread.sourceforge.net/featureCounts.html) is used to calculate raw read count for each gene and each sample. We used the gene expression detection threshold where genes were selected if there were ≥6 reads in at least 20% of samples. <BR>
 The relative abundance of a transcript is calculated by Fragments per Kilobase per Million Mapped Fragments (FPKM) and Transcripts per million (TPM).<BR>
 
 ## <a name="workflow"></a> Step 3 Detection of Outlier Samples
 Evaluate and remove outlier samples can significantly improve the reliability of DEGs and downstream functional analysis. We used robustPCA for outlier detection as it was found to result in stable performance and  the default cutoff value allows correct identification of outliers without yielding false positives in an evaluation study.<BR>
 
 ## <a name="workflow"></a> Step 4 Cell Type Deconvolution
-TRAPseq enriches specific cells than other cells, cell type deconvolution analysis can help reveal the cell type composition of TRAPseq transcriptome profiles. We estimated the cellular compositions of the TRAPseq samples through deconvolution analysis. We obtained gene expression signatures for major tubules segments from a mouse micro-dissected tubules dataset (GSE150338, PMID: 33769951), and used as input into CIBERSORTx (PMID: 31061481) to estimate the cellular composition of our TRAPseq data. <BR>
+TRAPseq enriches specific cells than other cells, cell type deconvolution analysis can help reveal the cell type composition of TRAPseq transcriptome profiles. We estimated the cellular compositions of the TRAPseq samples through deconvolution analysis. We obtained gene expression signatures for major tubules segments from a mouse micro-dissected tubules dataset (GSE150338, PMID: 33769951), and used as input into [CIBERSORTx](https://cibersortx.stanford.edu) to estimate the cellular composition of our TRAPseq data. <BR>
 
 ## <a name="workflow"></a> Step 5 Detection of Differential Expressed Genes & Filtering
-This step detects genes with statistically significant differences or changes in read counts or expression levels between two experimental conditions. The statistical significance test is conducted using the DESeq2 R package (1.30.1) with negative binomial distribution and Benjamini-Hochberg adjusted p-values (FDR). To screen for more meaningful DEGs, we only consider genes that are protein-coding genes and have the same expression change direction in comparison of SKO/WT and SKO/DKO. <BR>
+This step detects genes with statistically significant differences or changes in read counts or expression levels between two experimental conditions. The statistical significance test is conducted using the [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) with negative binomial distribution and Benjamini-Hochberg adjusted p-values (FDR). To screen for more meaningful DEGs, we only consider genes that are protein-coding genes and have the same expression change direction in comparison of SKO/WT and SKO/DKO. <BR>
 
 ## <a name="workflow"></a> Step 6 Enrichment Analysis (optional analysis step)
-Biological interpretations of selected DEGs are performed using various bioinformatics tools, including DAVID, Metascape, and IPA.
+Biological interpretations of selected DEGs are performed using various bioinformatics tools, including [DAVID](https://david.ncifcrf.gov), [Metascape](https://metascape.org/gp/index.html#/main/step1), and commercal tool [IPA](https://digitalinsights.qiagen.com/products-overview/discovery-insights-portfolio/analysis-and-visualization/qiagen-ipa/) or [MetaCore](https://clarivate.com/products/biopharma/discovery-clinical-regulatory/early-research-intelligence-solutions/).
 
 ## Useful References
