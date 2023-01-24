@@ -23,4 +23,11 @@ For R, 'DESeq2' library is required, which can be installed via bioconductor htt
 
 > BiocManager::install("DESeq2")
 ```
+
+## <a name="workflow"></a>Workflow
+
+# Step 1
+
+# Step 2
+
 ## Useful References
