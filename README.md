@@ -57,6 +57,23 @@ The relative abundance of a transcript is calculated by Fragments per Kilobase p
 ## <a name="workflow"></a> Step 3 Detection of Outlier Samples
 Evaluate and remove outlier samples can significantly improve the reliability of DEGs and downstream functional analysis. We used [robustPCA](https://cran.r-project.org/web/packages/rrcov/index.html) for outlier detection as it was found to result in stable performance and  the default cutoff value allows correct identification of outliers without yielding false positives in an evaluation study.<BR>
 
+```r
+# data_matrix_log, columns are samples, rows are genes, expression values are log2 transformed TPM values
+> pcaData <- prcomp(t(data_matrix_log))
+> pcaVar <- (pcaData$sdev)^2/sum((pcaData$sdev)^2) * 100
+
+# Scree Plot
+> plot(pcaVar, xlab = "Component Number", 
+     ylab = "% of variance", 
+     main = "scree plot")
+> abline(v=3, lty = 2, col = "red")
+> text(x=5, y=20, paste("top3 = ", round(sum(pcaVar[1:3]),1), "%", sep=""), col = "red")
+
+# Robust PCA, k=3
+> pc <- PcaGrid(t(data_matrix_log), k = 3, method = "qn")
+> plot(pc, main = "Robust PCA, k=3", xlim = c(0, 3.5))
+```
+	
 ## <a name="workflow"></a> Step 4 Cell Type Deconvolution
 TRAPseq enriches specific cells than other cells, cell type deconvolution analysis can help reveal the cell type composition of TRAPseq transcriptome profiles. We estimated the cellular compositions of the TRAPseq samples through deconvolution analysis. We obtained gene expression signatures for major tubules segments from a mouse micro-dissected tubules dataset (GSE150338, PMID: 33769951), and used as input into [CIBERSORTx](https://cibersortx.stanford.edu) to estimate the cellular composition of our TRAPseq data. <BR>
 
